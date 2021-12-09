@@ -1,26 +1,24 @@
 'use strict'
 function solveEquation(a, b, c) {
-  let arr = [];
-  let D = Math.pow(a, 2) - 4 * a * c;
+  let arr;
+  let D = Math.pow(b, 2) - 4 * a * c;
   if (D < 0) {
-    arr = [] ;
+    arr = [];
     return arr;
   } else if (D === 0) {
-    arr[0] = -b/(2 * a)
+    arr = [-b / (2 * a)]
     return arr;
   } else {
-    arr[0] = (-b + Math.sqrt(D) )/(2 * a) 
-    arr[1] = (-b - Math.sqrt(D) )/(2 * a)
+    arr = [(-b + Math.sqrt(D)) / (2 * a), (-b - Math.sqrt(D)) / (2 * a)]
     console.log(arr.length)
     return arr;
   }
-   // array
+  // array
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount;
+let totalAmount;
 
-  // код для задачи №2 писать здесь
 
   return totalAmount;
 }
