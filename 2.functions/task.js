@@ -5,7 +5,7 @@ min = Infinity;
 max = -Infinity;
 sum = 0;
 
-for ( i = 0; i < arr.length; i++ ) {
+for ( let i = 0; i < arr.length; i++ ) {
   if (arr[i] > max) {
     max = arr[i];
   }
@@ -15,8 +15,7 @@ for ( i = 0; i < arr.length; i++ ) {
   sum += arr[i];
 }
 avg = sum / arr.length
-avg = avg.toFixed(2);
-avg = Number(avg)
+avg = Number(avg.toFixed(2));
   return { min: min, max: max, avg: avg };
 }
 
@@ -24,7 +23,7 @@ avg = Number(avg)
 function worker(arr) {
   let sum = 0;
 
-  for ( i = 0; i < arr.length; i++) {
+  for ( let i = 0; i < arr.length; i++) {
     sum += arr[i];
   }
 
@@ -35,8 +34,7 @@ function worker(arr) {
 function makeWork(arrOfArr, func) {
   let max = 0;
   let sum;
-  func(worker)
-  for (i = 0; i < arrOfArr.length; i++) {
+  for (let i = 0; i < arrOfArr.length; i++) {
   sum = func(arrOfArr[i])
  if (sum > max) {
    max = sum
@@ -48,5 +46,18 @@ function makeWork(arrOfArr, func) {
 
 // Задание 3
 function worker2(arr) {
-  // Ваш код
+  let min, max, dif;
+  min = Infinity;
+  max = -Infinity;
+  
+  for ( let i = 0; i < arr.length; i++ ) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+    dif = Math.abs(max - min);
+}
+return dif;
 }
