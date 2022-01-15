@@ -1,34 +1,28 @@
 class AlarmClock {
     constructor (alarmCollection, timerId) {
-    alarmCollection = this.alarmCollection = [];
-    timerId = this.timerId = null;
+     this.alarmCollection = [];
+     this.timerId = null;
     }
 
     addClock (time, callback, id) {
-        if (id === undefined) {
-            throw new Error('id не передан')
-        } else if (this.alarmCollection.some((arr) => arr.id === id)) {
-            console.error('Будильник с таким id уже существует')
-          } else {
-            let object = new Object()
-            object.time = time;
-            object.id = id;
-            object.callback = callback;
-            this.alarmCollection.push(object)
+            if (id === undefined) {
+                throw new Error('id не передан')
             }
+            if (this.alarmCollection.some((elemClock) => elemClock.id === id)) {
+                console.error('Будильник с таким id уже существует')
+            }else {
+                let object;
+                this.alarmCollection.push(object = {time: time, id: id, callback: callback})
 
+        }
     }
 
+
     removeClock (id) {
-        let firstLength = this.alarmCollection.length
-        let result = this.alarmCollection.filter(() => this.alarmCollection.id === id)
-        let secondLength = result.length
-        if (firstLength === secondLength) {
-            return false;
-        } else {
-            this.alarmCollection.splice(result, 1) 
-            return true;
-        }
+        let firstLength = this.alarmCollection.length;
+        this.alarmCollection = this.alarmCollection.filter((elemClock) => elemClock.id !== id);
+        let secondLength = this.alarmCollection.length;
+        return firstLength > secondLength
     }
 
     getCurrentFormattedTime() {
@@ -37,15 +31,15 @@ class AlarmClock {
     }
 
     start() {
-        let checkClock = (arr) => {
-            if ( arr.time === this.getCurrentFormattedTime()) {
-                this.addClock().callback()
+        let checkClock = (addedClock) => {
+            if ( addedClock.time === this.getCurrentFormattedTime()) {
+                addedClock.callback()
             }
         }
     
         if (this.timerId === null) {
-           let idAlarm = setInterval(() => this.alarmCollection.forEach(checkClock), 1000);
-           this.timerId = idAlarm;
+            this.timerId= setInterval(() => this.alarmCollection.forEach(checkClock), 1000);
+
         }
     }
 
@@ -64,24 +58,30 @@ class AlarmClock {
         this.stop();
         this.alarmCollection = [];
     }
+
 }
 
 
 
  function testCase() {
     let phoneAlarm = new AlarmClock();
-    phoneAlarm.addClock('01:10', () => console.log('Wake up'), 1)
-    phoneAlarm.addClock('01:11', () => {console.log('Wake up'); phoneAlarm.removeClock(2)}, 2)
+    phoneAlarm.addClock('22:30', () => console.log('Wake up1'), 1)
+    phoneAlarm.addClock('22:31', () => {console.log('Wake up2'); phoneAlarm.removeClock(2)}, 2)
 
-    phoneAlarm.addClock('00:57', () => console.log('Wake up'))
-     phoneAlarm.addClock('01:12', () => {
+   try {
+       phoneAlarm.addClock('22:31', () => console.log('Wake up3'))
+   } catch (e) {
+        console.error(e)
+   }
+
+     phoneAlarm.addClock('22:32', () => {
          console.log('Wake up');
          phoneAlarm.clearAlarms();
          phoneAlarm.printAlarms()
      }, 3)
-     phoneAlarm.addClock('00:13', () => console.log('Wake up'), 1)
+     phoneAlarm.addClock('22:33', () => console.log('Wake up'), 1)
      phoneAlarm.printAlarms()
     phoneAlarm.start();
-    
+
  }
  testCase()
